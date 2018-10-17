@@ -1,0 +1,76 @@
+#+TITLE: Ideas for future NISQ
+#+AUTHOR: Daniel Moreno Manzano
+
+#+LATEX_HEADER: \usepackage{geometry}
+#+LATEX_HEADER: \geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+#+OPTIONS: toc:nil
+
+* Portals
+
+** Introduction
+
+The two main advantages -- and the basis of the computational power -- of the quantum computers are the superposition and entanglement phenomena.
+Based on those, the teleportation of information is possible.
+
+A bit far from that promising context with high computation power, in the NISQ era, the real devices are highly constrained and with low amount of qubits. 
+The most common constraint is the Nearest Neighbor one.
+Except for some technologies like Ion Traps, most of the devices need to arrange the qubits in a mesh layout.
+Therefore, a mapping process that initiates the qubits in the best possible place and routes them is needed.
+
+In the future NISQ era, with computer of hundreds of qubits, a fast way of moving the qubits to far places is required.
+Taking into account the Nearest Neighbor constraint and the teleportation ability of quantum devices, the idea of arranging special teleportation regions pops up.
+I call /portals/ to this regions.
+
+** Main idea
+
+As explained before, the future NISQ era needs a faster way to move the qubits around than the SWAP method.
+With /portals/ in strategic places in the quantum chip, the qubits will be able to transmit their states efficiently and faster than using the SWAP method.
+
+*** Steps
+
+The steps that this method requires are:
+
+1. EPR pair generation and distribution
+2. SWAP between the state we want to transmit and the closest EPR qubit (portal)
+3. Apply the first part of the teleportation circuit between the source qubit and one of the EPR qubits
+4. Measure and store the result in a classical register
+5. Apply the last part of the teleportation circuit to the target qubit
+
+
+*** Pros and cons
+
+Some of the drawbacks and advantages are:
+
+#+ATTR_LATEX: :booktabs :environment :font :width \textwidth :float t :align ll
+| _Cons_                                | _Pros_                                                                       |
+|                                     |                                                                            |
+|                                     |                                                                            |
+| - Long time of measuring            | - Is efficient for distances greater than 6 qubits (fig. [[fig:exec_t]])       |
+| - Difficulty of EPR pair generation | - Circuit/purpose specific chips could be optimized                        |
+| - Classical registers required      |                                                                            |
+
+
+#+caption: Execution time for several transportation methods from Bas thesis
+#+NAME: fig:exec_t
+#+ATTR_LATEX: :width 0.5\textwidth
+[[file:total_exec_t_transp_methods.png]]
+
+*** Instance
+
+E.g. assuming and infinit grid of qubits with a region highly congested -- an area with all the qubits constantly in use -- the computation requires the route of some qubit to another specific place.
+In order to depict a difficult scenario, one can see, in fig. [[fig:swap_ex]], that the congested area is between the origin and final position of the yellow qubit -- the one that needs to be routed.
+Using the SWAP method to route the qubit state will result in a long path, in order to avoid the congested area.
+
+#+caption: Example of the movement required for a qubit based on SWAP in the context of a highly congested region in between
+#+NAME: fig:swap_ex
+#+ATTR_LATEX: :width \textwidth
+[[file:Teletransmission1.png]]
+
+On the other hand, using the teleportation method, the path shortens a lot as one can see in fig. [[fig:tele_ex]].
+
+#+caption: Specification and example of the movement required for a qubit based on teleportation methods in the context of a highly congested region in between
+#+NAME: fig:tele_ex
+#+ATTR_LATEX: :width \textwidth
+[[file:Teletransmission2.png]]
+
+
